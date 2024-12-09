@@ -1,0 +1,28 @@
+# Simple workflow for deploying static content to an FTP server
+name: Deploy static content to FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: home562576484.1and1-data.host
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          local_path: './*'
+          PORT: 22
+          METHOD: sftp
+          remote_path: '/site/IS436/lab5/umairkhan/'
+          sftp_only: true
